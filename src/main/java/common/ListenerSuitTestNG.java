@@ -29,7 +29,7 @@ public class ListenerSuitTestNG implements ISuiteListener, ITestListener {
     }
 
     public void onTestStart(ITestResult result) {
-        System.out.println("New Test Started" + result.getMethod().getMethodName());
+        System.out.println("New Test Started: " + result.getMethod().getMethodName());
     }
 
     public void onTestSuccess(ITestResult result) {
