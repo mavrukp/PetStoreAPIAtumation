@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="TestNgSuite" parallel="tests" thread-count="5">
+    <listeners>
+        <listener class-name="common.ListenerSuitTestNG" />
+    </listeners>
+
+<!--    <test name="TestNgChromeTest" parallel="methods" thread-count="2">-->
+
+<!--    <test name="SearchText">
+        <parameter name="Port" value="4546"/>
+        <parameter name="text" value="Software Testing"/>
+        <classes>
+            <class name="SearchText"/>
+        </classes>
+    </test>-->
+
+    <test name="PetStoreTestTest">
+        <classes>
+            <class name="PetStoreTest"/>
+        </classes>
+    </test>
+
+</suite>
