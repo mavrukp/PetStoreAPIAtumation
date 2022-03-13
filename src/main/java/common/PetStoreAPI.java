@@ -18,7 +18,7 @@ public class PetStoreAPI {
         RestAssured.useRelaxedHTTPSValidation();
     }
 
-    public int createUser() {
+    public Response createUser() {
 
         JSONFile jsonFile = new JSONFile("postRequestBody");
 
@@ -28,36 +28,38 @@ public class PetStoreAPI {
         try {
             response = RestAssured.given()
                     .header("Content-Type","application/json")
+                    .header("Apikey","Apikeyvalue")
                     .baseUri(BASE_PATH)
                     .basePath("v2/user")
                     .body(body)
                     .post();
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in getRequestStatusCode ");
+            System.out.println("IllegalArgumentException Exception in post request ");
             e.printStackTrace();
 
         }
-        return response.statusCode();
+        return response;
     }
 
-    public int readUser() {
+    public Response readUser() {
 
         Response response = null;
         try {
             response = RestAssured.given()
                     .header("Accept","application/json")
+                    .header("Apikey","Apikeyvalue")
                     .baseUri(BASE_PATH)
                     .basePath("v2/user")
-                    .get(BASE_PATH+"/v2/user/test");
+                    .get(BASE_PATH+"/v2/user/usrnm123");
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in getRequestStatusCode ");
+            System.out.println("IllegalArgumentException Exception in getRequest ");
             e.printStackTrace();
         }
 
-        return response.statusCode();
+        return response;
     }
 
-    public int updateUser() {
+    public Response updateUser() {
         JSONFile jsonFile = new JSONFile("putRequestBody");
 
         String body = jsonFile.readJsonBody();
@@ -66,32 +68,34 @@ public class PetStoreAPI {
         try {
             response = RestAssured.given()
                     .header("Content-Type","application/json")
+                    .header("Apikey","Apikeyvalue")
                     .baseUri(BASE_PATH)
                     .basePath("v2/user")
                     .body(body)
-                    .put("test");
+                    .put("usrnm123");
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in getRequestStatusCode ");
+            System.out.println("IllegalArgumentException Exception in put request ");
             e.printStackTrace();
         }
 
-        return response.statusCode();
+        return response;
     }
 
-    public int deleteUser() {
+    public Response deleteUser() {
 
         Response response = null;
         try {
             response = RestAssured.given()
+                    .header("Apikey","Apikeyvalue")
                     .baseUri(BASE_PATH)
                     .basePath("v2/user")
-                    .delete("test");
+                    .delete("usrnm123");
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in getRequestStatusCode ");
+            System.out.println("IllegalArgumentException Exception in delete request ");
             e.printStackTrace();
         }
 
-        return response.statusCode();
+        return response;
     }
 
 /*    String createJsonBody(){
