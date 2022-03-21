@@ -1,5 +1,6 @@
-package common;
+package api;
 
+import common.JSONFile;
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
 import io.restassured.config.RestAssuredConfig;
@@ -50,7 +51,8 @@ public class PetStoreAPI {
                     .header("Apikey","Apikeyvalue")
                     .baseUri(BASE_PATH)
                     .basePath("v2/user")
-                    .get(BASE_PATH+"/v2/user/usrnm123");
+                    .pathParam("username","usrnm123")
+                    .get(BASE_PATH+"/v2/user/{username}");
         } catch (IllegalArgumentException e) {
             System.out.println("IllegalArgumentException Exception in getRequest ");
             e.printStackTrace();
@@ -69,10 +71,11 @@ public class PetStoreAPI {
             response = RestAssured.given()
                     .header("Content-Type","application/json")
                     .header("Apikey","Apikeyvalue")
+                    .basePath("v2/user/{username}")
                     .baseUri(BASE_PATH)
-                    .basePath("v2/user")
+                    .pathParam("username","usrnm123")
                     .body(body)
-                    .put("usrnm123");
+                    .put();
         } catch (IllegalArgumentException e) {
             System.out.println("IllegalArgumentException Exception in put request ");
             e.printStackTrace();
@@ -87,9 +90,10 @@ public class PetStoreAPI {
         try {
             response = RestAssured.given()
                     .header("Apikey","Apikeyvalue")
+                    .pathParam("username","usrnm123")
                     .baseUri(BASE_PATH)
-                    .basePath("v2/user")
-                    .delete("usrnm123");
+                    .basePath("v2/user/{username}")
+                    .delete();
         } catch (IllegalArgumentException e) {
             System.out.println("IllegalArgumentException Exception in delete request ");
             e.printStackTrace();

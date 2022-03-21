@@ -1,4 +1,4 @@
-import common.PetStoreAPI;
+import api.PetStoreAPI;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,6 +16,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.statusCode(), 200);
         }catch(NullPointerException e){
             System.out.println("NullPointerException Exception in createUserPostRequest ");
+            e.printStackTrace();
         }
     }
 
@@ -34,6 +35,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.statusCode(), 200);
         }catch(NullPointerException e){
             System.out.println("NullPointerException Exception in readUserGetRequest ");
+            e.printStackTrace();
         }
     }
 
@@ -46,6 +48,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.statusCode(), 200);
         }catch(NullPointerException e){
             System.out.println("NullPointerException Exception in updateUserPutRequest ");
+            e.printStackTrace();
         }
     }
 
@@ -58,6 +61,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.statusCode(), 200);
         }catch(NullPointerException e){
             System.out.println("NullPointerException Exception in deleteUserDeleteRequest ");
+            e.printStackTrace();
         }
     }
 }
