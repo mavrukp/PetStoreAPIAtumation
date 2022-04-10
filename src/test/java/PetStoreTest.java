@@ -3,6 +3,8 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 public class PetStoreTest {
 
     PetStoreAPI petStoreAPI = new PetStoreAPI();
@@ -33,10 +35,13 @@ public class PetStoreTest {
             Assert.assertEquals(response.jsonPath().getString("phone"), "2221115566");
             Assert.assertEquals(response.jsonPath().getInt("userStatus"), 68858015);
             Assert.assertEquals(response.statusCode(), 200);
+            response.then().assertThat().body(matchesJsonSchemaInClasspath("getResponseSchema.json"));
         }catch(NullPointerException e){
             System.out.println("NullPointerException Exception in readUserGetRequest ");
             e.printStackTrace();
         }
+
+
     }
 
     @Test (priority = 3)
@@ -63,5 +68,19 @@ public class PetStoreTest {
             System.out.println("NullPointerException Exception in deleteUserDeleteRequest ");
             e.printStackTrace();
         }
+    }
+
+    @Test (priority = 5)
+    public void readNotExistingUserGetRequest(){
+        Response response = petStoreAPI.readUser();
+        try {
+            Assert.assertEquals(response.statusCode(), 400);
+            Assert.assertEquals(response.jsonPath().getString("message"), "User not found");
+        }catch(NullPointerException e){
+            System.out.println("NullPointerException Exception in readUserGetRequest ");
+            e.printStackTrace();
+        }
+
+
     }
 }

@@ -1,8 +1,10 @@
 package common;
 
+import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,7 +32,7 @@ public class JSONFile {
             reader.close();
             return parser.toJson();
 
-        } catch (Exception ex) {
+        } catch (IOException | JsonException ex) {
             ex.printStackTrace();
         }
         return null;
