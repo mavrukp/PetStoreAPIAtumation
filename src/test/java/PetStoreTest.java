@@ -1,6 +1,7 @@
 import api.PetStoreAPI;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.Test;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -74,8 +75,8 @@ public class PetStoreTest {
     public void readNotExistingUserGetRequest(){
         Response response = petStoreAPI.readUser();
         try {
-            Assert.assertEquals(response.statusCode(), 400);
-            Assert.assertEquals(response.jsonPath().getString("message"), "User not found");
+            response.then().assertThat().statusCode(404);
+            response.then().assertThat().body("message",equalTo("User not found"));
         }catch(NullPointerException e){
             System.out.println("NullPointerException Exception in readUserGetRequest ");
             e.printStackTrace();
