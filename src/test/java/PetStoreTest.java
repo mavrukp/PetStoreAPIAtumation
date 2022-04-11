@@ -23,7 +23,7 @@ public class PetStoreTest {
         }
     }
 
-    @Test (priority = 2)
+    @Test (dependsOnMethods = { "createUserPostRequest" })
     public void readUserGetRequest(){
         Response response = petStoreAPI.readUser();
         try {
@@ -45,7 +45,7 @@ public class PetStoreTest {
 
     }
 
-    @Test (priority = 3)
+    @Test (dependsOnMethods = { "readUserGetRequest" })
     public void updateUserPutRequest(){
         Response response = petStoreAPI.updateUser();
         try {
@@ -58,7 +58,7 @@ public class PetStoreTest {
         }
     }
 
-    @Test (priority = 4)
+    @Test (dependsOnMethods = { "updateUserPutRequest" })
     public void deleteUserDeleteRequest(){
         Response response = petStoreAPI.deleteUser();
         try {
@@ -71,7 +71,7 @@ public class PetStoreTest {
         }
     }
 
-    @Test (priority = 5)
+    @Test
     public void readNotExistingUserGetRequest(){
         Response response = petStoreAPI.readUser();
         try {
