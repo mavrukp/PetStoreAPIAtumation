@@ -81,7 +81,5 @@ public class PetStoreTest {
             System.out.println("NullPointerException Exception in readUserGetRequest ");
             e.printStackTrace();
         }
-
-
     }
 }

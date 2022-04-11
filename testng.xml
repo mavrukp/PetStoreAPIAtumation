@@ -4,17 +4,7 @@
         <listener class-name="common.ListenerSuitTestNG" />
     </listeners>
 
-<!--    <test name="TestNgChromeTest" parallel="methods" thread-count="2">-->
-
-<!--    <test name="SearchText">
-        <parameter name="Port" value="4546"/>
-        <parameter name="text" value="Software Testing"/>
-        <classes>
-            <class name="SearchText"/>
-        </classes>
-    </test>-->
-
-    <test name="PetStoreTestTest">
+    <test name="PetStoreTest">
         <classes>
             <class name="PetStoreTest"/>
         </classes>
