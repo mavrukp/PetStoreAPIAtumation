@@ -3,10 +3,13 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class PetStoreTest {
+
+    private static Logger logger = Logger.getLogger(PetStoreTest.class);
 
     PetStoreAPI petStoreAPI = new PetStoreAPI();
 
@@ -18,7 +21,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.jsonPath().getString("message"), "68858015");
             Assert.assertEquals(response.statusCode(), 200);
         }catch(NullPointerException e){
-            System.out.println("NullPointerException Exception in createUserPostRequest ");
+            logger.error("NullPointerException Exception in createUserPostRequest ");
             e.printStackTrace();
         }
     }
@@ -38,7 +41,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.statusCode(), 200);
             response.then().assertThat().body(matchesJsonSchemaInClasspath("getResponseSchema.json"));
         }catch(NullPointerException e){
-            System.out.println("NullPointerException Exception in readUserGetRequest ");
+            logger.error("NullPointerException Exception in readUserGetRequest ");
             e.printStackTrace();
         }
 
@@ -53,7 +56,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.jsonPath().getString("message"), "68858015");
             Assert.assertEquals(response.statusCode(), 200);
         }catch(NullPointerException e){
-            System.out.println("NullPointerException Exception in updateUserPutRequest ");
+            logger.error("NullPointerException Exception in updateUserPutRequest ");
             e.printStackTrace();
         }
     }
@@ -66,7 +69,7 @@ public class PetStoreTest {
             Assert.assertEquals(response.jsonPath().getString("message"), "usrnm123");
             Assert.assertEquals(response.statusCode(), 200);
         }catch(NullPointerException e){
-            System.out.println("NullPointerException Exception in deleteUserDeleteRequest ");
+            logger.error("NullPointerException Exception in deleteUserDeleteRequest ");
             e.printStackTrace();
         }
     }
@@ -78,7 +81,7 @@ public class PetStoreTest {
             response.then().assertThat().statusCode(404);
             response.then().assertThat().body("message",equalTo("User not found"));
         }catch(NullPointerException e){
-            System.out.println("NullPointerException Exception in readUserGetRequest ");
+            logger.error("NullPointerException Exception in readUserGetRequest ",e);
             e.printStackTrace();
         }
     }

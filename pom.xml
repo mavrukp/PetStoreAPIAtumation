@@ -25,7 +25,7 @@
                     <properties>
                         <property>
                             <name>parallel</name>
-                            <value>tests</value>
+                            <value>methods</value>
                         </property>
                         <property>
                             <name>threadCount</name>
@@ -50,7 +50,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.4.0</version>
-            <!--            <scope>test</scope>-->
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->

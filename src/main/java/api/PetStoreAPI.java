@@ -5,11 +5,13 @@ import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.response.Response;
-import org.json.JSONObject;
+import org.testng.log4testng.Logger;
 
 public class PetStoreAPI {
 
-    String BASE_PATH = "https://petstore.swagger.io";
+    private static final String BASEPATH = "https://petstore.swagger.io";
+    private static final String CONTENTTYPE = "application/json";
+    private static Logger logger = Logger.getLogger(PetStoreAPI.class);
 
     public PetStoreAPI(){
         RestAssured.config= RestAssuredConfig.config()
@@ -28,14 +30,14 @@ public class PetStoreAPI {
         Response response = null;
         try {
             response = RestAssured.given()
-                    .header("Content-Type","application/json")
+                    .header("Content-Type",CONTENTTYPE)
                     .header("Apikey","Apikeyvalue")
-                    .baseUri(BASE_PATH)
+                    .baseUri(BASEPATH)
                     .basePath("v2/user")
                     .body(body)
                     .post();
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in post request ");
+            logger.error("IllegalArgumentException Exception in post request ");
             e.printStackTrace();
 
         }
@@ -47,14 +49,14 @@ public class PetStoreAPI {
         Response response = null;
         try {
             response = RestAssured.given()
-                    .header("Accept","application/json")
+                    .header("Accept",CONTENTTYPE)
                     .header("Apikey","Apikeyvalue")
-                    .baseUri(BASE_PATH)
+                    .baseUri(BASEPATH)
                     .basePath("v2/user")
                     .pathParam("username","usrnm123")
-                    .get(BASE_PATH+"/v2/user/{username}");
+                    .get(BASEPATH+"/v2/user/{username}");
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in getRequest ");
+            logger.error("IllegalArgumentException Exception in getRequest ");
             e.printStackTrace();
         }
 
@@ -69,15 +71,15 @@ public class PetStoreAPI {
         Response response = null;
         try {
             response = RestAssured.given()
-                    .header("Content-Type","application/json")
+                    .header("Content-Type",CONTENTTYPE)
                     .header("Apikey","Apikeyvalue")
                     .basePath("v2/user/{username}")
-                    .baseUri(BASE_PATH)
+                    .baseUri(BASEPATH)
                     .pathParam("username","usrnm123")
                     .body(body)
                     .put();
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in put request ");
+            logger.error("IllegalArgumentException Exception in put request ");
             e.printStackTrace();
         }
 
@@ -91,27 +93,14 @@ public class PetStoreAPI {
             response = RestAssured.given()
                     .header("Apikey","Apikeyvalue")
                     .pathParam("username","usrnm123")
-                    .baseUri(BASE_PATH)
+                    .baseUri(BASEPATH)
                     .basePath("v2/user/{username}")
                     .delete();
         } catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException Exception in delete request ");
+            logger.error("IllegalArgumentException Exception in delete request ");
             e.printStackTrace();
         }
 
         return response;
     }
-
-/*    String createJsonBody(){
-        JSONObject jo = new JSONObject();
-        jo.put( "id", 68858015);
-        jo.put( "username", "test");
-        jo.put( "firstName", "testfirstname");
-        jo.put( "lastName", "testlastname");
-        jo.put(  "email", "testemail");
-        jo.put( "password", "testpassword");
-        jo.put( "phone", "2221115566");
-        jo.put( "userStatus", 68858015);
-        return jo.toString();
-    }*/
 }
