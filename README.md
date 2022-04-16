@@ -13,4 +13,3 @@ PS: if tests would like to be run in docker image, when Dockerfile is built, tes
 In project folder, run "docker build . -t imagename" 
 
 or docker maven image should be downloaded with "docker pull maven:3.3-jdk-8" command and then run "docker run -it --rm --name my-maven-project -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.3-jdk-8 mvn clean install" command under project folder.
-Jenkins test
