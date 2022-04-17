@@ -12,6 +12,7 @@ public class PetStoreAPI {
     private static final String BASEPATH = "https://petstore.swagger.io";
     private static final String CONTENTTYPE = "application/json";
     private static Logger logger = Logger.getLogger(PetStoreAPI.class);
+    private String username;
 
     public PetStoreAPI(){
         RestAssured.config= RestAssuredConfig.config()
@@ -19,6 +20,7 @@ public class PetStoreAPI {
                         .setParam("http.socket.timeout",10000)
                         .setParam("http.connection.timeout", 10000));
         RestAssured.useRelaxedHTTPSValidation();
+        username = new JSONFile("postRequestBody").getUserNameFromBodyFile();
     }
 
     public Response createUser() {
@@ -53,7 +55,7 @@ public class PetStoreAPI {
                     .header("Apikey","Apikeyvalue")
                     .baseUri(BASEPATH)
                     .basePath("v2/user")
-                    .pathParam("username","usrnm123")
+                    .pathParam("username",username)
                     .get(BASEPATH+"/v2/user/{username}");
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException Exception in getRequest ");
@@ -75,7 +77,7 @@ public class PetStoreAPI {
                     .header("Apikey","Apikeyvalue")
                     .basePath("v2/user/{username}")
                     .baseUri(BASEPATH)
-                    .pathParam("username","usrnm123")
+                    .pathParam("username",username)
                     .body(body)
                     .put();
         } catch (IllegalArgumentException e) {
@@ -92,7 +94,7 @@ public class PetStoreAPI {
         try {
             response = RestAssured.given()
                     .header("Apikey","Apikeyvalue")
-                    .pathParam("username","usrnm123")
+                    .pathParam("username",username)
                     .baseUri(BASEPATH)
                     .basePath("v2/user/{username}")
                     .delete();

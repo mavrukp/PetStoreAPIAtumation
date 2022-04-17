@@ -21,18 +21,33 @@ public class JSONFile {
     }
 
     public String readJsonBody() {
-
         try {
-            // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get(jsonFilepath));
-
-            // create parser
-            JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-            //close reader
-            reader.close();
+            JsonObject parser = getBodyFromFile(jsonFilepath);
             return parser.toJson();
+        }catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
-        } catch (IOException | JsonException ex) {
+    public String getUserNameFromBodyFile() {
+        try {
+            JsonObject parser = getBodyFromFile(jsonFilepath);
+            return parser.get("username").toString();
+        }catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    private JsonObject getBodyFromFile(String bodyFileName){
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(bodyFileName));
+            JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+            reader.close();
+
+            return parser;
+        }catch (IOException | JsonException ex) {
             ex.printStackTrace();
         }
         return null;
