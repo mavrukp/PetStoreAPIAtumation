@@ -17,7 +17,7 @@ public class JSONFile {
     public JSONFile(String fileName) {
         this.fileSeperator = System.getProperty("file.separator");
         this.jsonFilepath = System.getProperty("user.dir")
-                + fileSeperator + fileName + ".json";
+                + fileSeperator + "src" + fileSeperator + "main" + fileSeperator + "resources" + fileSeperator + fileName + ".json";
     }
 
     public String readJsonBody() {
