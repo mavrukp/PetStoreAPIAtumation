@@ -23,9 +23,11 @@ public class JSONFile {
     public String readJsonBody() {
         try {
             JsonObject parser = getBodyFromFile(jsonFilepath);
-            return parser.toJson();
+            if (parser != null) {
+                return parser.toJson();
+            }
         }catch (NullPointerException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
         return null;
     }
@@ -33,9 +35,11 @@ public class JSONFile {
     public String getUserNameFromBodyFile() {
         try {
             JsonObject parser = getBodyFromFile(jsonFilepath);
-            return parser.get("username").toString();
+            if (parser != null) {
+                return parser.get("username").toString();
+            }
         }catch (NullPointerException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
         return null;
     }
@@ -48,7 +52,7 @@ public class JSONFile {
 
             return parser;
         }catch (IOException | JsonException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
         return null;
     }
