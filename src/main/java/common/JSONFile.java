@@ -21,27 +21,17 @@ public class JSONFile {
     }
 
     public String readJsonBody() {
-        try {
             JsonObject parser = getBodyFromFile(jsonFilepath);
             if (parser != null) {
                 return parser.toJson();
-            }
-        }catch (NullPointerException ex) {
-            //ex.printStackTrace();
-        }
-        return null;
+            } else return null;
     }
 
     public String getUserNameFromBodyFile() {
-        try {
             JsonObject parser = getBodyFromFile(jsonFilepath);
             if (parser != null) {
                 return parser.get("username").toString();
-            }
-        }catch (NullPointerException ex) {
-            //ex.printStackTrace();
-        }
-        return null;
+            } else return null;
     }
 
     private JsonObject getBodyFromFile(String bodyFileName){
