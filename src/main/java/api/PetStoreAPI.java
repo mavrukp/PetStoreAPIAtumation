@@ -20,14 +20,15 @@ public class PetStoreAPI {
                         .setParam("http.socket.timeout",10000)
                         .setParam("http.connection.timeout", 10000));
         RestAssured.useRelaxedHTTPSValidation();
-        username = new JSONFile("postRequestBody").getUserNameFromBodyFile();
     }
 
-    public Response createUser() {
+    public Response createUser(String fileName) {
 
-        JSONFile jsonFile = new JSONFile("postRequestBody");
+        JSONFile jsonFile = new JSONFile(fileName);
 
         String body = jsonFile.readJsonBody();
+
+        setUserName(fileName);
 
         Response response = null;
         try {
@@ -40,8 +41,8 @@ public class PetStoreAPI {
                     .post();
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException Exception in post request ");
-            e.printStackTrace();
-
+            //e.printStackTrace();
+            return response;
         }
         return response;
     }
@@ -59,16 +60,16 @@ public class PetStoreAPI {
                     .get(BASEPATH+"/v2/user/{username}");
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException Exception in getRequest ");
-            e.printStackTrace();
         }
 
         return response;
     }
 
-    public Response updateUser() {
-        JSONFile jsonFile = new JSONFile("putRequestBody");
+    public Response updateUser(String fileName) {
+        JSONFile jsonFile = new JSONFile(fileName);
 
         String body = jsonFile.readJsonBody();
+        setUserName(fileName);
 
         Response response = null;
         try {
@@ -82,7 +83,7 @@ public class PetStoreAPI {
                     .put();
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException Exception in put request ");
-            e.printStackTrace();
+            return response;
         }
 
         return response;
@@ -100,9 +101,12 @@ public class PetStoreAPI {
                     .delete();
         } catch (IllegalArgumentException e) {
             logger.error("IllegalArgumentException Exception in delete request ");
-            e.printStackTrace();
         }
 
         return response;
+    }
+
+    private void setUserName(String fileName){
+        username = new JSONFile(fileName).getUserNameFromBodyFile();
     }
 }

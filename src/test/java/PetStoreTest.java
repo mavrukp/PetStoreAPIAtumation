@@ -19,7 +19,7 @@ public class PetStoreTest {
 
     @Test (priority = 1)
     public void createUserPostRequest(){
-        Response response = petStoreAPI.createUser();
+        Response response = petStoreAPI.createUser("postRequestBody");
         try {
             message = response.jsonPath().getString("message");
             Assert.assertEquals(response.jsonPath().getInt("code"), 200);
@@ -56,7 +56,7 @@ public class PetStoreTest {
 
     @Test (dependsOnMethods = { "readUserGetRequest" })
     public void updateUserPutRequest(){
-        Response response = petStoreAPI.updateUser();
+        Response response = petStoreAPI.updateUser("putRequestBody");
         try {
             Assert.assertEquals(response.jsonPath().getInt("code"), 200);
             Assert.assertEquals(response.jsonPath().getString("message"), message);
@@ -115,5 +115,19 @@ public class PetStoreTest {
             logger.error("NullPointerException Exception in readUserGetRequest ",e);
             e.printStackTrace();
         }
+    }
+
+    @Test//(expectedExceptions = java.lang.IllegalArgumentException.class)
+    public void postRequestTestForIllegalException(){
+        Response response = petStoreAPI.createUser("postRequestWithEmptyUsername");
+        if (response==null) Assert.assertTrue(true);
+
+    }
+
+    @Test
+    public void putRequestTestForIllegalException(){
+        Response response = petStoreAPI.updateUser("postRequestWithEmptyUsername");
+        if (response==null) Assert.assertTrue(true);
+
     }
 }
